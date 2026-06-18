@@ -1,0 +1,1209 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>pepixel • Official</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap");
+
+      html,
+      body {
+        min-height: 100%;
+      }
+      body {
+        background: #0a2f0a;
+        color: #fff;
+              <rect x="5" y="11" width="14" height="2" rx="1" fill="#000" transform="rotate(45 12 12)" />
+                <rect x="5" y="11" width="14" height="2" rx="1" fill="#000" transform="rotate(-45 12 12)" />
+          -apple-system,
+          sans-serif;
+        position: relative;
+        z-index: 1;
+      }
+
+      .pixel-font {
+        font-family: "Press Start 2P", system-ui;
+        image-rendering: pixelated;
+      }
+
+      .meme-border {
+              <path d="M21 3L3 10.5l4.5 1.5L10 20l2.5-3.5L20.5 21 21 3z" fill="#0088cc" opacity="0.95" />
+        box-shadow: 0 0 0 4px #166534;
+      }
+
+      .glitch {
+        animation: glitch 1.5s infinite;
+      }
+
+      .retro-green {
+        background: linear-gradient(#166534, #0a2f0a);
+      }
+
+      .pepe-hero {
+        image-rendering: pixelated;
+        box-shadow: 0 0 40px rgba(34, 197, 94, 0.4);
+      }
+
+      /* pepixel 3D GIRATÓRIO NO FUNDO */
+      #pepixel-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        opacity: 0.25;
+        pointer-events: none;
+        overflow: hidden;
+        background: radial-gradient(
+          circle at center,
+          rgba(34, 197, 94, 0.08),
+          transparent 40%
+        );
+      }
+      .pepixel-spinner {
+        width: 700px;
+        height: 800px;
+        position: absolute;
+        top: 68%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        perspective: 1200px;
+        filter: drop-shadow(0 0 60px rgba(0, 255, 80, 0.4));
+      }
+      .pepixel-spinner img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        animation: spin3d 25s linear infinite;
+        opacity: 0.9;
+      }
+      .pepixel-spinner-alt {
+        width: 440px;
+        height: 520px;
+        position: absolute;
+        top: 22%;
+        right: 6%;
+        transform: translate(0, -10%);
+        perspective: 1200px;
+        filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.12));
+        opacity: 0.18;
+      }
+      .pepixel-spinner-alt img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        animation: spin3d-alt 22s linear infinite reverse;
+      }
+      .pepixel-spinner-small {
+        width: 260px;
+        height: 320px;
+        position: absolute;
+        bottom: 10%;
+        right: 8%;
+        transform: translate(0, 0);
+        perspective: 1200px;
+        filter: drop-shadow(0 0 40px rgba(0, 255, 80, 0.25));
+        opacity: 0.18;
+      }
+      .pepixel-spinner-small img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        animation: spin3d 20s linear infinite;
+      }
+      @keyframes spin3d {
+        from {
+          transform: translate(-50%, -50%) rotateY(0deg);
+        }
+        to {
+          transform: translate(-50%, -50%) rotateY(360deg);
+        }
+      }
+      @keyframes spin3d-alt {
+        from {
+          transform: rotateY(0deg);
+        }
+        to {
+          transform: rotateY(-360deg);
+        }
+      }
+      /* About panel animations */
+      @keyframes titleGlow {
+        from {
+          text-shadow:
+            0 0 20px #00ffff,
+            4px 4px 0 #000;
+        }
+        to {
+          text-shadow:
+            0 0 35px #00ffff,
+            4px 4px 0 #000;
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes pondCall {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+      /* Loader green/red alternating */
+      .pepe-loader {
+        background: linear-gradient(
+          180deg,
+          rgba(10, 34, 10, 0.6),
+          rgba(16, 40, 16, 0.8)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 36px 12px;
+        box-sizing: border-box;
+      }
+      .pepe-loader-inner {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        justify-content: center;
+      }
+      .pepe-dot {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        background: #22c55e;
+        box-shadow: 0 0 18px rgba(34, 197, 94, 0.9);
+        transform-origin: center;
+        animation: pepe-pulse 1.2s infinite ease-in-out;
+      }
+      .pepe-dot:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .pepe-dot:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      @keyframes pepe-pulse {
+        0% {
+          transform: translateY(0) scale(1);
+          background: #22c55e;
+          box-shadow: 0 0 18px rgba(34, 197, 94, 0.9);
+        }
+        50% {
+          transform: translateY(-10px) scale(1.06);
+          background: #dc2626;
+          box-shadow: 0 0 20px rgba(220, 38, 38, 0.95);
+        }
+        100% {
+          transform: translateY(0) scale(1);
+          background: #22c55e;
+          box-shadow: 0 0 18px rgba(34, 197, 94, 0.9);
+        }
+      }
+      /* Navbar pixel styling */
+      .nav-link {
+        font-family: "Press Start 2P", system-ui;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #cfeed0;
+        font-size: 12px;
+        text-shadow: 0 0 6px rgba(34,197,94,0.12);
+      }
+      .nav-link:hover { color: #22c55e; }
+      .nav-button {
+        font-family: "Press Start 2P", system-ui;
+        letter-spacing: 2px;
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+      /* Mobile menu */
+      .mobile-menu-btn {
+        display: none;
+        background: transparent;
+        border: 2px solid rgba(255,255,255,0.06);
+        padding: 8px 10px;
+        border-radius: 6px;
+      }
+      @media (max-width: 768px) {
+        .mobile-menu-btn { display: inline-flex; }
+        .nav-link { display: none; }
+        .nav-right { gap: 6px; }
+        .pepixel-spinner { width: 420px; height: 520px; top: 60%; }
+        .pepixel-spinner-alt { width: 260px; height: 320px; right: 2%; top: 10%; }
+        .pepixel-spinner-small { width: 160px; height: 200px; right: 3%; bottom: 6%; }
+        .pepe-loader { padding: 18px 8px; }
+        .pepe-dot { width: 18px; height: 18px; border-radius: 4px; }
+        .pixel-font { font-size: 12px; }
+        .max-w-6xl { padding-left: 12px; padding-right: 12px; }
+        .max-w-5xl { padding-left: 12px; padding-right: 12px; }
+        video#panel-video { max-height: 260px; }
+      }
+    </style>
+  </head>
+  <body class="bg-[#0a2f0a] text-white">
+    <div id="pepixel-bg">
+      <div class="pepixel-spinner">
+        <img src="pepixel-mc.jpeg" alt="Pepixel" />
+      </div>
+      <div class="pepixel-spinner-alt">
+        <img src="pepixel-good1.jpeg" alt="Pepixel Alternativo" />
+      </div>
+      <div class="pepixel-spinner-small">
+        <img src="pepixel-desejos.jpeg" alt="Pepixel Pequeno" />
+      </div>
+    </div>
+    <!-- NAVBAR SUPERIOR (pixel-styled) -->
+    <nav class="bg-[#052105] border-b-4 border-[#22c55e] sticky top-0 z-50">
+      <div
+        class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between"
+      >
+        <!-- Left: logo -->
+        <div class="flex items-center gap-4">
+          <div
+            class="w-10 h-10 bg-[#22c55e] rounded-sm flex items-center justify-center text-black font-bold pixel-font"
+          >
+            PX
+          </div>
+          <div
+            class="text-3xl font-bold pixel-font text-[#22c55e] tracking-[4px]"
+          >
+            pepixel
+          </div>
+        </div>
+
+        <!-- Center: menu -->
+        <div class="hidden md:flex items-center gap-8 nav-center">
+          <a
+            href="#"
+            id="sobre-link"
+            class="nav-link pixel-font hover:text-[#22c55e]"
+            >SOBRE</a
+          >
+          <a
+            href="#"
+            id="tokenomics-link"
+            class="nav-link pixel-font hover:text-[#22c55e]"
+            >burn</a
+          >
+          <a
+            href="#"
+            id="documento-link"
+            class="nav-link pixel-font hover:text-[#22c55e]"
+            >documento</a
+          >
+        </div>
+        <button
+          class="mobile-menu-btn md:hidden"
+          id="mobile-menu-btn"
+          aria-label="Abrir menu"
+        >
+          ☰
+        </button>
+
+        <!-- Right: wallet button -->
+        <div class="flex items-center gap-3 nav-right">
+          <button
+            onclick="connectWallet()"
+            class="nav-button bg-[#22c55e] hover:bg-[#16a34a] text-black font-bold transition active:scale-95 pixel-font"
+          >
+            CONNECT
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO - A IMAGEM COMO ABERTURA (como você pediu) -->
+    <section class="max-w-5xl mx-auto px-4 pt-8 pb-12">
+      <div class="flex justify-center">
+        <!-- Loader substitui a imagem: tom verde/vermelho alternando -->
+        <div
+          id="pepe-loader"
+          class="w-full max-w-[820px] rounded-lg border-8 border-[#22c55e] shadow-2xl pepe-loader"
+          aria-hidden="true"
+        >
+          <div class="pepe-loader-inner" aria-hidden="true">
+            <div class="pepe-dot"></div>
+            <div class="pepe-dot"></div>
+            <div class="pepe-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-6">
+        <h1
+          class="text-6xl md:text-7xl font-black tracking-[6px] pixel-font text-[#22c55e]"
+        >
+          pepixel
+        </h1>
+
+        <div class="mt-6 flex justify-center gap-4"></div>
+      </div>
+    </section>
+
+    <!-- TOKENOMICS (conteúdo movido para modal) -->
+    <section id="tokenomics" class="max-w-5xl mx-auto px-4 py-12">
+      <!-- seção intencionalmente vazia; usar modal para exibir detalhes -->
+    </section>
+
+    <!-- COMO COMPRAR -->
+    <section
+      id="comprar"
+      class="max-w-5xl mx-auto px-4 py-12 border-t-4 border-[#22c55e]"
+    >
+      <h2 class="text-center text-4xl font-bold mb-8 pixel-font">
+        COMO COMPRAR
+      </h2>
+
+      <div class="max-w-md mx-auto bg-[#052105] p-8 border-4 border-[#22c55e]">
+        <ol class="space-y-4 text-lg">
+          <li class="flex gap-3">
+            <span class="font-bold text-[#22c55e]">1.</span> Conecte sua wallet
+          </li>
+          <li class="flex gap-3">
+            <span class="font-bold text-[#22c55e]">2.</span> Tenha $SOL na rede
+          </li>
+          <li class="flex gap-3">
+            <span class="font-bold text-[#22c55e]">3.</span> Clique no botão
+            abaixo
+          </li>
+
+          <!-- === PAINEL PEPPIXEL - VÍDEO SEM PARAR === -->
+          <li>
+            <div
+              style="
+                position: relative;
+                width: 720px;
+                max-width: 90%;
+                margin: 40px auto;
+                padding: 25px;
+                background: linear-gradient(#0a220a, #1a3a1a);
+                border: 10px solid #00ff88;
+                border-radius: 25px;
+                box-shadow: 0 0 80px rgba(0, 255, 120, 0.7);
+                overflow: hidden;
+              "
+            >
+              <!-- Cabeçalho do painel -->
+              <div
+                style="
+                  text-align: center;
+                  color: #aaffaa;
+                  font-size: 26px;
+                  margin-bottom: 18px;
+                  text-shadow: 0 0 15px #00ff88;
+                  letter-spacing: 2px;
+                "
+              >
+                <!-- Cabeçalho do painel removido -->
+              </div>
+
+              <!-- Vídeo sempre rodando (playlist de 2 vídeos em sequência) -->
+              <video
+                id="panel-video"
+                muted
+                playsinline
+                style="
+                  width: 100%;
+                  display: block;
+                  border-radius: 12px;
+                  filter: contrast(1.05) saturate(1.1);
+                "
+              ></video>
+
+              <script>
+                (function () {
+                  const playlist = [
+                    "Keevx_image_to_video_2026-06-17 23_02_02_1.mp4",
+                    "Keevx_image_to_video_2026-06-17 23_08_22_1.mp4",
+                  ];
+                  const v = document.getElementById("panel-video");
+                  let idx = 0;
+
+                  function loadAndPlay(i) {
+                    v.src = playlist[i];
+                    v.load();
+                    const p = v.play();
+                    if (p && p.catch) {
+                      p.catch(() => {
+                        /* autoplay blocked */
+                      });
+                    }
+                  }
+
+                  v.addEventListener("ended", () => {
+                    idx = (idx + 1) % playlist.length;
+                    loadAndPlay(idx);
+                  });
+
+                  // try to start immediately
+                  loadAndPlay(idx);
+                })();
+                // garantir controles ocultos e sem foco/interação do usuário
+                v.controls = false;
+                v.setAttribute("aria-hidden", "true");
+                v.tabIndex = -1;
+                v.style.pointerEvents = "none";
+              </script>
+
+              <!-- Efeito de brilho sutil -->
+              <div
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  right: 0;
+                  height: 50%;
+                  background: linear-gradient(
+                    transparent,
+                    rgba(0, 255, 136, 0.25)
+                  );
+                  pointer-events: none;
+                "
+              ></div>
+            </div>
+          </li>
+        </ol>
+
+        <button
+          onclick="buyToken()"
+          class="mt-8 w-full bg-red-600 hover:bg-red-700 py-4 text-xl font-bold border-4 border-red-800 active:scale-95 transition"
+        >
+          COMPRAR $pepixel AGORA
+        </button>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap" class="max-w-5xl mx-auto px-4 py-12">
+      <h2 class="text-center text-4xl font-bold mb-10 pixel-font">ROADMAP</h2>
+    </section>
+
+    <!-- SOBRE (modal-like panel that opens in-place) -->
+    <div
+      id="sobre-modal"
+      class="hidden fixed inset-0 z-[60] flex items-center justify-center bg-black/70"
+    >
+      <div
+        class="max-w-3xl w-full mx-4 p-8"
+        style="
+          background: linear-gradient(135deg, #0a2a0a, #1a3f1a);
+          border: 8px solid #00ff88;
+          border-radius: 30px;
+          box-shadow: 0 0 60px rgba(0, 255, 120, 0.6);
+          color: #fff;
+          position: relative;
+        "
+      >
+        <button
+          onclick="closeSobre()"
+          style="
+            position: absolute;
+            right: 14px;
+            top: 12px;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 8px;
+          "
+        >
+          FECHAR
+        </button>
+
+        <h1
+          style="
+            font-size: 48px;
+            margin: 0 0 10px 0;
+            color: #ffdd00;
+            text-shadow:
+              0 0 20px #00ffff,
+              4px 4px 0 #000;
+            animation: titleGlow 2s infinite alternate;
+            text-align: center;
+          "
+        >
+          Pepixel
+        </h1>
+        <p
+          style="
+            font-size: 22px;
+            color: #aaffaa;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: fadeIn 2s;
+          "
+        >
+          A Pixelated Neighbor from the Pepe Pond
+        </p>
+
+        <div
+          style="
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto;
+            color: #ddffdd;
+          "
+        >
+          <p>
+            I’m an <strong>anonymous meme lover</strong>. One day, knowing
+            almost nothing about crypto, I created a coin out of pure passion
+            for the Pepe universe.
+          </p>
+          <p>
+            My name is <strong>Pepixel</strong> — a pixelated frog, neighbor to
+            the legendary Pepe. I was born from the same chaotic and fun energy
+            that made Pepe an icon.
+          </p>
+          <p>
+            While many chase charts and numbers, I came back to the roots: meme
+            culture, real community, and the joy of swimming together.
+            <strong>Pepixel</strong> is not just another coin — it’s a call to
+            rebuild the pond, pixel by pixel.
+          </p>
+          <p>
+            If you’re also a lost frog looking to find the pond again… welcome
+            home.
+          </p>
+        </div>
+
+        <!-- frase removida conforme pedido -->
+
+        <div
+          style="
+            margin-top: 20px;
+            font-size: 20px;
+            color: #ffdd00;
+            text-align: center;
+          "
+        >
+          $PEPIXEL
+        </div>
+      </div>
+    </div>
+
+    <!-- TOKENOMICS (modal-like) -->
+    <div
+      id="tokenomics-modal"
+      class="hidden fixed inset-0 z-[60] flex items-center justify-center bg-black/70"
+    >
+      <div
+        class="max-w-3xl w-full mx-4 p-8"
+        style="
+          max-width: 720px;
+          background: linear-gradient(#1a0f00, #3a1f00);
+          border: 8px solid #ff4400;
+          border-radius: 25px;
+          color: #ffddaa;
+          box-shadow: 0 0 70px rgba(255, 80, 0, 0.7);
+          position: relative;
+          overflow: hidden;
+        "
+      >
+        <button
+          onclick="closeTokenomics()"
+          style="
+            position: absolute;
+            right: 14px;
+            top: 12px;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 8px;
+          "
+        >
+          FECHAR
+        </button>
+
+        <h2
+          style="
+            text-align: center;
+            font-size: 42px;
+            margin: 0 0 15px 0;
+            color: #ffdd00;
+            text-shadow:
+              0 0 25px #ff5500,
+              0 0 40px #ff0000;
+            animation: fireFlicker 0.7s infinite alternate;
+          "
+        >
+          🔥 TOKEN BURN 🔥
+        </h2>
+        <p
+          style="
+            text-align: center;
+            color: #ffbb77;
+            font-size: 19px;
+            margin-bottom: 30px;
+          "
+        >
+          Queime $PEPIXEL e reduza o supply para sempre
+        </p>
+
+        <div
+          style="
+            background: rgba(0, 0, 0, 0.6);
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 35px;
+            text-align: center;
+            border: 2px dashed #ff8800;
+          "
+        >
+          <p style="font-size: 18px; margin: 5px 0">
+            <strong>Total Queimado:</strong>
+          </p>
+          <p>
+            <span
+              id="totalBurned"
+              style="color: #ffdd00; font-size: 32px; font-weight: bold"
+              >0,0000</span
+            >
+            $PEPIXEL
+          </p>
+          <p style="margin: 10px 0 0 0; font-size: 15px; color: #ffaa77">
+            Última queima: <span id="lastBurn">Nenhuma ainda</span>
+          </p>
+        </div>
+
+        <div
+          style="
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 18px;
+            text-align: center;
+          "
+        >
+          <input
+            type="number"
+            step="0.0000000001"
+            id="burnAmount"
+            placeholder="Digite a quantidade para queimar"
+            style="
+              width: 85%;
+              padding: 16px;
+              font-size: 18px;
+              background: #111;
+              color: #ffdd88;
+              border: 3px solid #ff5500;
+              border-radius: 12px;
+              text-align: center;
+              margin-bottom: 20px;
+            "
+          />
+          <button
+            onclick="burnToken()"
+            style="
+              padding: 18px 50px;
+              font-size: 22px;
+              background: linear-gradient(#ff2200, #ff7700);
+              color: white;
+              border: none;
+              border-radius: 14px;
+              cursor: pointer;
+              box-shadow: 0 0 35px #ff0000;
+              font-weight: bold;
+            "
+          >
+            🔥 QUEIMAR TOKENS AGORA 🔥
+          </button>
+        </div>
+
+        <div
+          id="burnResult"
+          style="
+            margin-top: 25px;
+            text-align: center;
+            min-height: 50px;
+            font-size: 18px;
+            font-weight: bold;
+          "
+        ></div>
+
+        <div
+          style="
+            position: absolute;
+            top: -40px;
+            left: 12%;
+            font-size: 80px;
+            animation: flame 1.2s infinite;
+          "
+        >
+          🔥
+        </div>
+        <div
+          style="
+            position: absolute;
+            top: -30px;
+            right: 18%;
+            font-size: 65px;
+            animation: flame 0.9s infinite alternate;
+          "
+        >
+          🔥
+        </div>
+
+        <style>
+          @keyframes fireFlicker {
+            from {
+              text-shadow:
+                0 0 20px #ff5500,
+                0 0 40px #ff0000;
+            }
+            to {
+              text-shadow:
+                0 0 35px #ffaa00,
+                0 0 55px #ff0000;
+            }
+          }
+          @keyframes flame {
+            0% {
+              transform: translateY(0) rotate(-12deg);
+            }
+            100% {
+              transform: translateY(-25px) rotate(12deg);
+            }
+          }
+        </style>
+
+        <script>
+          // burnToken function shared — ensure it exists in the page scope
+          function burnToken() {
+            let amountStr = document.getElementById("burnAmount").value.trim();
+            const result = document.getElementById("burnResult");
+            if (!amountStr || parseFloat(amountStr) <= 0) {
+              result.innerHTML = "❌ Digite uma quantidade válida!";
+              result.style.color = "#ff7777";
+              return;
+            }
+            let amount = parseFloat(amountStr);
+            let totalEl = document.getElementById("totalBurned");
+            let currentTotal =
+              parseFloat(totalEl.innerText.replace(",", ".")) || 0;
+            currentTotal += amount;
+            totalEl.innerText = currentTotal.toLocaleString("pt-BR", {
+              minimumFractionDigits: 4,
+              maximumFractionDigits: 4,
+            });
+            document.getElementById("lastBurn").innerText =
+              new Date().toLocaleDateString("pt-BR", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              });
+            result.innerHTML = `✅ <strong>${amount.toLocaleString("pt-BR", { minimumFractionDigits: 4 })} $PEPIXEL</strong> foram queimados com fogo eterno! 🔥`;
+            result.style.color = "#ffdd00";
+          }
+        </script>
+      </div>
+    </div>
+
+    <!-- DOCUMENTO (modal-like panel for 'documento' link) -->
+    <div
+      id="documento-modal"
+      class="hidden fixed inset-0 z-[60] flex items-center justify-center bg-black/70"
+    >
+      <div
+        class="max-w-4xl w-full mx-4 p-8"
+        style="
+          background: linear-gradient(135deg, #0f2b0f, #1f4a1f);
+          border: 10px solid #00cc77;
+          border-radius: 25px;
+          color: #fff;
+          box-shadow: 0 0 70px rgba(0, 204, 119, 0.5);
+          position: relative;
+        "
+      >
+        <button
+          onclick="closeDocumento()"
+          style="
+            position: absolute;
+            right: 14px;
+            top: 12px;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 8px;
+          "
+        >
+          FECHAR
+        </button>
+
+        <h1
+          style="
+            text-align: center;
+            font-size: 42px;
+            color: #ffdd00;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px #00ff88;
+          "
+        >
+          $PEPIXEL
+        </h1>
+        <p
+          style="
+            text-align: center;
+            font-size: 22px;
+            color: #aaffaa;
+            margin-bottom: 30px;
+          "
+        >
+          The Pixelated Pepe Neighbor
+        </p>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+          "
+        >
+          <div>
+            <h2
+              style="
+                color: #00ff88;
+                border-bottom: 2px solid #00ff88;
+                padding-bottom: 8px;
+              "
+            >
+              Token Information
+            </h2>
+            <ul style="list-style: none; padding: 0; line-height: 2.1">
+              <li><strong>Symbol:</strong> $PEPIXEL</li>
+              <li><strong>Total Supply:</strong> 1,000,000,000 (1 Billion)</li>
+              <li><strong>Blockchain:</strong> Solana</li>
+              <li>
+                <strong>Contract Address:</strong>
+                <span style="color: #ffdd00">[Coming Soon]</span>
+              </li>
+              <li><strong>Launched on:</strong> Pump.fun</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2
+              style="
+                color: #00ff88;
+                border-bottom: 2px solid #00ff88;
+                padding-bottom: 8px;
+              "
+            >
+              The Story
+            </h2>
+            <p style="line-height: 1.8; color: #ddffdd">
+              Pepixel was born from a simple idea by an
+              <strong>anonymous meme lover</strong>. <br /><br />With only
+              <strong>$40</strong> and a lot of love for Pepe, this anonymous
+              creator launched $PEPIXEL on Pump.fun, without knowing much about
+              crypto — just pure passion for the frog culture.
+              <br /><br />Pepixel is the pixelated neighbor from the same pond
+              as Pepe. A frog who decided to return home and rebuild the
+              community, one pixel at a time.
+            </p>
+          </div>
+        </div>
+
+        <div
+          style="
+            margin-top: 50px;
+            text-align: center;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+          "
+        >
+          <p style="font-size: 20px; color: #ffdd00; margin: 0">
+            Built with memes. Powered by community.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer
+      class="text-center py-8 text-sm text-gray-400 border-t border-[#22c55e]"
+    >
+      <div
+        class="max-w-4xl mx-auto px-4 flex items-center justify-center gap-4"
+      >
+        <div class="text-left">
+          pepixel © 2026 • Feito por degenerados, para degenerados
+          <div class="text-[#22c55e]">
+            Not financial advice. This is a meme.
+          </div>
+        </div>
+
+        <div class="ml-4 flex items-center gap-3">
+          <a
+            href="https://x.com/pepixelpepixelg"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X (Twitter)"
+          >
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style="filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.5))"
+            >
+              <rect
+                x="5"
+                y="11"
+                width="14"
+                height="2"
+                rx="1"
+                fill="#fff"
+                transform="rotate(45 12 12)"
+              />
+              <rect
+                x="5"
+                y="11"
+                width="14"
+                height="2"
+                rx="1"
+                fill="#fff"
+                transform="rotate(-45 12 12)"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://t.me/+yxclAgkdBNRkZmUx"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Telegram"
+          >
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style="filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.5))"
+            >
+              <path
+                d="M21 3L3 10.5l4.5 1.5L10 20l2.5-3.5L20.5 21 21 3z"
+                fill="#fff"
+                opacity="0.95"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MODAL DE COMPRA -->
+    <div
+      id="modal"
+      onclick="closeModal()"
+      class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[100]"
+    >
+      <div
+        onclick="event.stopImmediatePropagation()"
+        class="bg-[#052105] border-4 border-[#22c55e] p-8 max-w-sm w-full mx-4"
+      >
+        <h3 class="text-2xl font-bold mb-4 text-center">Comprar $pepixel</h3>
+
+        <div id="modal-content">
+          <button
+            onclick="fakeBuy()"
+            class="w-full bg-red-600 hover:bg-red-700 py-4 text-xl font-bold mb-3 border-4 border-red-800"
+          >
+            CONECTAR CARTEIRA
+          </button>
+          <p class="text-center text-sm text-gray-400">
+            Simulação divertida • Sem risco real
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function tailwindInit() {
+        document.documentElement.style.setProperty("--accent", "#22c55e");
+      }
+      tailwindInit();
+
+      function connectWallet() {
+        const btns = document.querySelectorAll("button");
+        const originalTexts = [];
+
+        btns.forEach((btn, i) => {
+          originalTexts[i] = btn.innerText;
+          btn.innerText = "CONNECTING...";
+          btn.disabled = true;
+        });
+
+        setTimeout(() => {
+          btns.forEach((btn, i) => {
+            btn.innerText = "CONNECTED ✅";
+            btn.classList.add("!bg-[#22c55e]", "!text-black");
+          });
+
+          // Open pump.fun launcher in a new tab
+          try {
+            window.open("https://pump.fun", "_blank", "noopener,noreferrer");
+          } catch (e) {
+            // ignore if blocked
+          }
+
+          setTimeout(() => {
+            btns.forEach((btn, i) => {
+              btn.innerText = originalTexts[i];
+              btn.disabled = false;
+              btn.classList.remove("!bg-[#22c55e]", "!text-black");
+            });
+          }, 1200);
+        }, 1800);
+      }
+
+      function buyToken() {
+        // open pump.fun in a new tab (launcher) while showing the modal
+        try {
+          window.open("https://pump.fun", "_blank", "noopener,noreferrer");
+        } catch (e) {
+          // ignore if blocked
+        }
+        document.getElementById("modal").classList.remove("hidden");
+        document.getElementById("modal").classList.add("flex");
+      }
+
+      function openTokenomicsModal() {
+        const m = document.getElementById("tokenomics-modal");
+        if (m) {
+          m.classList.remove("hidden");
+          m.classList.add("flex");
+        }
+      }
+
+      // Mobile menu toggle
+      document.addEventListener("DOMContentLoaded", function () {
+        const btn = document.getElementById("mobile-menu-btn");
+        const center = document.querySelector(".nav-center");
+        if (btn && center) {
+          btn.addEventListener("click", function () {
+            if (center.classList.contains("hidden")) {
+              center.classList.remove("hidden");
+              center.classList.add("flex");
+              center.style.flexDirection = "column";
+              center.style.background = "#062006";
+              center.style.position = "absolute";
+              center.style.top = "56px";
+              center.style.left = "8px";
+              center.style.right = "8px";
+              center.style.padding = "12px";
+              center.style.border = "2px solid rgba(34,197,94,0.12)";
+              center.style.borderRadius = "8px";
+            } else {
+              center.classList.remove("flex");
+              center.classList.add("hidden");
+            }
+          });
+        }
+      });
+
+      function closeModal() {
+        document.getElementById("modal").classList.remove("flex");
+        document.getElementById("modal").classList.add("hidden");
+      }
+
+      function fakeBuy() {
+        const content = document.getElementById("modal-content");
+        content.innerHTML = `
+        <div class="text-center">
+          <div class="text-6xl mb-4">🚀</div>
+          <p class="text-xl font-bold mb-2">Transação enviada!</p>
+          <p class="text-[#22c55e]">Você comprou 69.420 $pepixel</p>
+          <p class="text-sm mt-4 text-gray-400">Obrigado por ser based 🐸</p>
+          
+          <button onclick="closeModal()" 
+                  class="mt-6 w-full bg-[#22c55e] text-black py-3 font-bold">
+            FECHAR
+          </button>
+        </div>
+      `;
+      }
+
+      // Easter egg: clique na imagem do Pepe
+      document.addEventListener("DOMContentLoaded", () => {
+        const heroImg = document.querySelector(".pepe-hero");
+        if (heroImg) {
+          heroImg.addEventListener("click", () => {
+            heroImg.style.transform = "scale(1.02)";
+            setTimeout(() => {
+              heroImg.style.transform = "scale(1)";
+            }, 200);
+          });
+        }
+
+        // Sobre modal open/close
+        const sobreLink = document.getElementById("sobre-link");
+        const sobreModal = document.getElementById("sobre-modal");
+        if (sobreLink && sobreModal) {
+          sobreLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            sobreModal.classList.remove("hidden");
+            sobreModal.classList.add("flex");
+          });
+        }
+        // Documento modal open/close
+        const docLink = document.getElementById("documento-link");
+        const docModal = document.getElementById("documento-modal");
+        if (docLink && docModal) {
+          docLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            docModal.classList.remove("hidden");
+            docModal.classList.add("flex");
+          });
+        }
+        window.closeDocumento = function () {
+          const m = document.getElementById("documento-modal");
+          if (m) {
+            m.classList.remove("flex");
+            // Tokenomics modal open/close
+            const tokLink = document.getElementById("tokenomics-link");
+            const tokModal = document.getElementById("tokenomics-modal");
+            if (tokLink && tokModal) {
+              tokLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                tokModal.classList.remove("hidden");
+                tokModal.classList.add("flex");
+              });
+            }
+            window.closeTokenomics = function () {
+              const m = document.getElementById("tokenomics-modal");
+              if (m) {
+                m.classList.remove("flex");
+                m.classList.add("hidden");
+              }
+            };
+            m.classList.add("hidden");
+          }
+        };
+        window.closeSobre = function () {
+          const m = document.getElementById("sobre-modal");
+          if (m) {
+            m.classList.remove("flex");
+            m.classList.add("hidden");
+          }
+        };
+      });
+    </script>
+  </body>
+</html>
